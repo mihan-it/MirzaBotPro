@@ -6,9 +6,9 @@ $hide_panel = json_decode($botinfo['hide_panel'], true);
 $text_bot_var =  json_decode(file_get_contents('text.json'), true);
 // keyboard bot 
 $keyboarddate = array(
+    'text_Purchased_services' => $text_bot_var['btn_keyboard']['my_service'],
     'text_sell' => $text_bot_var['btn_keyboard']['buy'],
     'text_usertest' => $text_bot_var['btn_keyboard']['test'],
-    'text_Purchased_services' => $text_bot_var['btn_keyboard']['my_service'],
     'accountwallet' => $text_bot_var['btn_keyboard']['wallet'],
     'text_support' => $text_bot_var['btn_keyboard']['support'],
     'text_Admin' => "👨‍💼 پنل مدیریت",

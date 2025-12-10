@@ -94,7 +94,7 @@ https://domin.ir/botmirzapanel/index.php
 #### 1️⃣ ابتدا اسکریپت زیر را کپی کرده و بر روی سرور اجرا کنید.
 
 ```
-bash -c "$(curl -L https://raw.githubusercontent.com/mihan-it/MirzaBotPro/main/install.sh)"
+bash -c "$(curl -L https://raw.githubusercontent.com/mihan-it/MirzaBotPro/refs/heads/main/install.sh)"
 ```
 
 #### 2️⃣ سپس گزینه‌ٔ «2» را انتخاب نمایید تا فرآیند به‌روزرسانی انجام شود.

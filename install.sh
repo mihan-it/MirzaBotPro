@@ -1618,7 +1618,7 @@ function update_bot() {
         sudo cp "$INSTALL_SCRIPT_PATH" /root/install.sh
         echo -e "\n\e[92mCopied latest install.sh to /root/install.sh.\033[0m"
     else
-        RAW_INSTALL_URL="https://raw.githubusercontent.com/mihan-it/MirzaBotPro/main/install.sh"
+        RAW_INSTALL_URL="https://raw.githubusercontent.com/mihan-it/MirzaBotPro/refs/heads/main/install.sh"
         if curl -fsSL "$RAW_INSTALL_URL" -o /root/install.sh; then
             echo -e "\n\e[92mFetched install.sh from upstream repository.\033[0m"
         else

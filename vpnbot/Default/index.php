@@ -1251,12 +1251,18 @@ if (mysqli_num_rows($locationproduct) == 1) {
                 ]
             ]
         ]);
-        Editmessagetext($from_id, $message_id, "❌ موجودی شما برای خرید سرویس کافی نمی باشد.
-💸  برای افزایش موجودی مبلغ " . number_format($datafactor['price_product']) . " تومان را وارد کنید:
-✅  حداقل مبلغ $minbalance حداکثر مبلغ $maxbalance تومان می باشد", $bakinfos, 'HTML');
-        step('get_price', $from_id);
-        return;
-    }
+Editmessagetext(
+    $from_id,
+    $message_id,
+    "❌ موجودی شما برای خرید سرویس کافی نمی باشد.
+💸 برای افزایش موجودی مبلغ " . number_format($datafactor['price_product']) . " تومان را وارد کنید:",
+    $bakinfos,
+    'HTML'
+);
+
+step('get_price', $from_id);
+return;
+
     Editmessagetext($from_id, $message_id, "♻️ در حال ساختن سرویس شما...", null);
     $datetimestep = strtotime("+" . $datafactor['Service_time'] . "days");
     if ($datafactor['Service_time'] == 0) {
@@ -2032,12 +2038,18 @@ $textonebuy
                 ]
             ]
         ]);
-        Editmessagetext($from_id, $message_id, "❌ موجودی شما برای خرید سرویس کافی نمی باشد.
-💸  برای افزایش موجودی مبلغ " . number_format($datafactor['price_product']) . " تومان را وارد کنید:
-    ✅  حداقل مبلغ $minbalance حداکثر مبلغ $maxbalance تومان می باشد", $bakinfos, 'HTML');
-        step('get_price', $from_id);
-        return;
-    }
+        Editmessagetext(
+    $from_id,
+    $message_id,
+    "❌ موجودی شما برای خرید سرویس کافی نمی باشد.
+💸 برای افزایش موجودی مبلغ " . number_format($datafactor['price_product']) . " تومان را وارد کنید:",
+    $bakinfos,
+    'HTML'
+);
+
+step('get_price', $from_id);
+return;
+
     $DataUserOut = $ManagePanel->DataUser($nameloc['Service_location'], $nameloc['username']);
     $extend = $ManagePanel->extend($marzban_list_get['Methodextend'], $datafactor['Volume_constraint'], $datafactor['Service_time'], $nameloc['username'], $datafactor['code_product'], $marzban_list_get['code_panel']);
     if ($extend['status'] == false) {

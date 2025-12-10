@@ -727,15 +727,15 @@ if ($text == $text_bot_var['btn_keyboard']['buy'] && $setting['active_step_note'
         sendmessage($from_id, $textbotlang['Admin']['managepanel']['nullpanel'], null, 'HTML');
         return;
     }
-if (mysqli_num_rows($locationproduct) == 1) {
-    $location = mysqli_fetch_assoc($locationproduct)['name_panel'];
-    $locationproduct = select("marzban_panel", "*", "name_panel", $location, "select");
-    $query = "SELECT * FROM product 
+    if (mysqli_num_rows($locationproduct) == 1) {
+        $location = mysqli_fetch_assoc($locationproduct)['name_panel'];
+        $locationproduct = select("marzban_panel", "*", "name_panel", $location, "select");
+        $query = "SELECT * FROM product 
               WHERE (Location = '{$locationproduct['name_panel']}' OR Location = '/all')
               AND (agent = '{$userbot['agent']}' OR agent = 'all')";
-    $stmt = $pdo->prepare($query);
-    $stmt->execute();
-    $productnotexits = $stmt->rowCount();
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+        $productnotexits = $stmt->rowCount();
 
 
         $productnotexits = $stmt->rowCount();
@@ -817,7 +817,6 @@ if (mysqli_num_rows($locationproduct) == 1) {
         🔔 حداقل حجم $mainvolume گیگابایت و حداکثر $maxvolume گیگابایت می باشد.";
                 sendmessage($from_id, $textcustom, $backuser, 'html');
                 step('gettimecustomvol', $from_id);
-
             } else {
                 sendmessage($from_id, $textbotlang['Admin']['Product']['nullpProduct'], null, 'HTML');
             }
@@ -829,7 +828,6 @@ if (mysqli_num_rows($locationproduct) == 1) {
         step("home", $from_id);
     }
     sendmessage($from_id, "📌 موقعیت سرویس خود را انتخاب کنید", $list_marzban_panel_user, 'HTML');
-
 } elseif ($datain == "customvolumebuy") {
 
     $userdate        = json_decode($user['Processing_value'], true);
@@ -845,7 +843,6 @@ if (mysqli_num_rows($locationproduct) == 1) {
 🔔 حداقل حجم $mainvolume گیگابایت و حداکثر $maxvolume گیگابایت می باشد.";
     sendmessage($from_id, $textcustom, $backuser, 'html');
     step('gettimecustomvol', $from_id);
-
 } elseif (preg_match('/^location_(.*)/', $datain, $dataget)) {
 
     $userdate        = json_decode($user['Processing_value'], true);
@@ -904,7 +901,6 @@ if (mysqli_num_rows($locationproduct) == 1) {
             }
             Editmessagetext($from_id, $message_id, "📌 دسته بندی خود را انتخاب نمایید!", KeyboardCategory($locationproduct['name_panel'], $userbot['agent'], "backuser"));
         }
-
     } else {
 
         $customVolumeEnabled = isCustomVolumeEnabledForAgent($locationproduct, $userbot['agent'] ?? null);
@@ -925,13 +921,11 @@ if (mysqli_num_rows($locationproduct) == 1) {
     🔔 حداقل حجم $mainvolume گیگابایت و حداکثر $maxvolume گیگابایت می باشد.";
             sendmessage($from_id, $textcustom, $backuser, 'html');
             step('gettimecustomvol', $from_id);
-
         } else {
             sendmessage($from_id, $textbotlang['Admin']['Product']['nullpProduct'], null, 'HTML');
         }
         return;
     }
-
 } elseif (preg_match('/^categorynames_(.*)/', $datain, $dataget)) {
 
     $categorynames = $dataget[1];
@@ -962,7 +956,6 @@ if (mysqli_num_rows($locationproduct) == 1) {
         $customvolume = "customvolumebuy"
     );
     Editmessagetext($from_id, $message_id, "🛍️ لطفاً سرویسی که می‌خواهید خریداری کنید را انتخاب کنید!", $prodcut, 'HTML');
-
 } elseif ($user['step'] == "gettimecustomvol") {
 
     $userdate        = json_decode($user['Processing_value'], true);
@@ -999,7 +992,6 @@ if (mysqli_num_rows($locationproduct) == 1) {
     } else {
         step('getvolumecustomuser', $from_id);
     }
-
 } elseif ($user['step'] == "getvolumecustomusername" || preg_match('/selectproductbuyy_(.*)/', $datain, $dataget)) {
     $userdate = json_decode($user['Processing_value'], true);
     $marzban_list_get = select("marzban_panel", "*", "name_panel", $userdate['name_panel'], "select");
@@ -1251,18 +1243,12 @@ if (mysqli_num_rows($locationproduct) == 1) {
                 ]
             ]
         ]);
-Editmessagetext(
-    $from_id,
-    $message_id,
-    "❌ موجودی شما برای خرید سرویس کافی نمی باشد.
-💸 برای افزایش موجودی مبلغ " . number_format($datafactor['price_product']) . " تومان را وارد کنید:",
-    $bakinfos,
-    'HTML'
-);
-
-step('get_price', $from_id);
-return;
-
+        Editmessagetext($from_id, $message_id, "❌ موجودی شما برای خرید سرویس کافی نمی باشد.
+💸  برای افزایش موجودی مبلغ " . number_format($datafactor['price_product']) . " تومان را وارد کنید:
+", $bakinfos, 'HTML');
+        step('get_price', $from_id);
+        return;
+    }
     Editmessagetext($from_id, $message_id, "♻️ در حال ساختن سرویس شما...", null);
     $datetimestep = strtotime("+" . $datafactor['Service_time'] . "days");
     if ($datafactor['Service_time'] == 0) {
@@ -1646,7 +1632,7 @@ $textonebuy
         $Percent = "100";
     }
     if ($Percent < 0)
-        $Percent = -($Percent);
+        $Percent = - ($Percent);
     $Percent = round($Percent, 2);
     $keyboardsetting = ['inline_keyboard' => []];
     $keyboarddateservies = array(
@@ -1832,7 +1818,6 @@ $textonebuy
             $customvolume = "customvolumeextend"
         );
         sendmessage($from_id, "🛍️ لطفاً سرویسی که می‌خواهید تمدید کنید را انتخاب کنید!", $prodcut, 'HTML');
-
     } else {
 
         $custompricevalue = $setting['pricevolume'];
@@ -1848,7 +1833,6 @@ $textonebuy
         sendmessage($from_id, $textcustom, $backuser, 'html');
         step('gettimecustomvolextend', $from_id);
     }
-
 } elseif ($datain == "customvolumeextend") {
 
     $userdate = json_decode($user['Processing_value'], true);
@@ -1866,7 +1850,6 @@ $textonebuy
 
     sendmessage($from_id, $textcustom, $backuser, 'html');
     step('gettimecustomvolextend', $from_id);
-
 } elseif ($user['step'] == "gettimecustomvolextend") {
 
     savedata("save", "volume", $text);
@@ -1901,7 +1884,6 @@ $textonebuy
 
     sendmessage($from_id, $textcustom, $backuser, 'html');
     step("gettimecustomextend", $from_id);
-
 } elseif ($user['step'] == "gettimecustomextend" || preg_match('/^selectproductextends_(.*)/', $datain, $dataget)) {
     if ($user['step'] == "gettimecustomextend") {
         if (!ctype_digit($text)) {
@@ -2038,18 +2020,12 @@ $textonebuy
                 ]
             ]
         ]);
-        Editmessagetext(
-    $from_id,
-    $message_id,
-    "❌ موجودی شما برای خرید سرویس کافی نمی باشد.
-💸 برای افزایش موجودی مبلغ " . number_format($datafactor['price_product']) . " تومان را وارد کنید:",
-    $bakinfos,
-    'HTML'
-);
-
-step('get_price', $from_id);
-return;
-
+        Editmessagetext($from_id, $message_id, "❌ موجودی شما برای خرید سرویس کافی نمی باشد.
+💸  برای افزایش موجودی مبلغ " . number_format($datafactor['price_product']) . " تومان را وارد کنید:
+", $bakinfos, 'HTML');
+        step('get_price', $from_id);
+        return;
+    }
     $DataUserOut = $ManagePanel->DataUser($nameloc['Service_location'], $nameloc['username']);
     $extend = $ManagePanel->extend($marzban_list_get['Methodextend'], $datafactor['Volume_constraint'], $datafactor['Service_time'], $nameloc['username'], $datafactor['code_product'], $marzban_list_get['code_panel']);
     if ($extend['status'] == false) {
